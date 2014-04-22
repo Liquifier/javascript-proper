@@ -10,17 +10,21 @@ function addNextQuestion (nextQuestion) {
     var questionContent="";
     questionContent += "<p>" + nextQuestion.question + "</p>";
     for(var i = 0; i < nextQuestion.choices.length; i++) {
-        questionContent += "<p>" + nextQuestion.choices[i] + "</p>";
+        questionContent += "<p>" + "<input type ='radio' name='radAnswer' value=" + ' + nextQuestion.choices[i] + ' + ">" + "</p>";
     }
+    questionContent += "<input id='submitAnswer' type ='submit' value='Submit Answer'>";
     return questionContent;
 }
 
 //load first question after button press
 $(document).ready(function() {
     "use strict";
-    $("#btnSubmit").click(function(){
+    $("#startQuiz").click(function(){
         $("div.question").html(function() {
             return addNextQuestion(allQuestions[0]);
         });
+    });
+    $('#submitAnswer').click(function(){
+        $("input:radio[name='radAnswer']:checked").val();
     });
 });
