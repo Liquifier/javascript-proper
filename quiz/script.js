@@ -3,7 +3,6 @@ var allQuestions = [
     {question: "Who is the President of Argentina?", choices: ["Nestor Kirchner", "Christina Fernandez", "Eduardo Dulhalde", "Reynaldo Bignone"], correctAnswer:1},
     {question: "What is the capitol of Australia?", choices: ["Sydney", "Auckland", "Canberra", "Darwin"], correctAnswer:2}
 ];
-var nextQuestion = allQuestions[0]; //testing out first question
 
 //dynamically generate html for next question
 function addNextQuestion (nextQuestion) {
@@ -16,10 +15,12 @@ function addNextQuestion (nextQuestion) {
     return questionContent;
 }
 
+//load first question after button press
 $(document).ready(function() {
     "use strict";
-    $("div.question").html(function() {
-        return addNextQuestion(nextQuestion);
+    $("#btnSubmit").click(function(){
+        $("div.question").html(function() {
+            return addNextQuestion(allQuestions[0]);
+        });
     });
 });
-//I guess stop trying to script the html content and just load it all and hide it one at a time by setting display:none
