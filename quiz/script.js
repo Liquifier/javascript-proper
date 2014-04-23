@@ -11,11 +11,11 @@ var score = 0;
 function addNextQuestion (nextQuestion) {
     "use strict";
     var questionContent="";
-    questionContent += "<p>" + nextQuestion.question + "</p>";
+    questionContent += "<form>" + "<p>" + nextQuestion.question + "</p>";
     for(var i = 0; i < nextQuestion.choices.length; i++) {
         questionContent += "<br>" + "<input type ='radio' name='radAnswer' value=" + i + ">"  + nextQuestion.choices[i];
     }
-    questionContent += "<br><input id='submitAnswer' type ='submit' value='Submit Answer'>";
+    questionContent += "<br><input id='submitAnswer' type ='submit' value='Submit Answer'></form>";
     return questionContent;
 }
 
@@ -37,6 +37,7 @@ $(document).ready(function() {
         var answer = $("input:radio[name='radAnswer']:checked").val();
         //get the question number that was just answered
         var getCurrQ = $("div.question").data("q");
+        //nested if loop maybe problematic; next question is not loading, it goes back to original state
         if(typeof answer === 'number') { //check for a valid answer before continuing
             if(answer === allQuestions[getCurrQ].correctAnswer) {
                 //get current score so we can add 1 to it after a correct answer
