@@ -25,15 +25,16 @@ $(document).ready(function() {
     //initialize the score tally
     $("div.score").data('score', 0);
     $("#startQuiz").click(function(){
+        $("div.start").html("");
         $("div.question").html(function() {
             return addNextQuestion(allQuestions[0]);
         });
         //set data attribute to keep track of current question number
         $("div.question").data("q", 0);
     });
-    //probably have to move the stuff below out of documentReady
-    $('#submitAnswer').click(function(){
+    $('body').on('click', '#submitAnswer' ,function(){
         //get answer just submitted
+        alert('Testing');
         var answer = $("input:radio[name='radAnswer']:checked").val();
         //get the question number that was just answered
         var getCurrQ = $("div.question").data("q");
@@ -52,5 +53,4 @@ $(document).ready(function() {
             alert('Please select an answer');
         }
     });
-        //how to tally the score within this function scope? use an html data attribute?
 });
