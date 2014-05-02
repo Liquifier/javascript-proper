@@ -39,15 +39,27 @@ $(document).ready(function() {
         var getCurrQ = $("div.question").data("q");
         if(typeof answer === 'string') { //check for a valid answer before continuing
             if(answer == allQuestions[getCurrQ].correctAnswer) {
-               alert('correct!');
                 //get current score so we can add 1 to it after a correct answer
                 var getCurrScore = $('div.score').data('score');
                 $('div.score').data('score', getCurrScore+1);
+                alert('Correct! Your current score is ' + $('div.score').data('score'));
             }
-            //generate next question
-            $('div.question').html(function() {
-                return addNextQuestion(allQuestions[getCurrQ+1]);
-            }).data("q", getCurrQ+1);
+            //generate next question if last question has not been loaded
+            //getCurrQ is 0 index based
+            if(getCurrQ < allQuestions.length - 1) {
+                $('div.question').html(function() {
+                    return addNextQuestion(allQuestions[getCurrQ+1]);
+                }).data("q", getCurrQ+1);
+            }
+            else {
+                $('div.question').html("");
+                var scoreText = "<p>" + "You got " + $('div.score').data('score') + " question(s) out of " + allQuestions.length + " correct!" + "</p>";
+                $('div.score').html(function(){
+                    return scoreText;
+                });
+            }
+
+
         //implement handling after last question is answered
         } else {
             //this part resets the page to the original state, don't want that
