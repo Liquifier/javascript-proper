@@ -2,7 +2,8 @@
 var allQuestions = [
     {question: "Who is Prime Minister of the United Kingdom?", choices: ["David Cameron", "Gordon Brown", "Malcom Tucker", "Nicola Murray"], correctAnswer:0},
     {question: "Who is the President of Argentina?", choices: ["Nestor Kirchner", "Christina Fernandez", "Eduardo Dulhalde", "Reynaldo Bignone"], correctAnswer:1},
-    {question: "What is the capitol of Australia?", choices: ["Sydney", "Auckland", "Canberra", "Darwin"], correctAnswer:2}
+    {question: "What is the capitol of Australia?", choices: ["Sydney", "Auckland", "Canberra", "Darwin"], correctAnswer:2},
+    {question: "Who is current chair of the Federal Reserve?", choices: ["Alan Greenspan", "Paul Volcker", "Ben Bernanke", "Timothy Geitner", "Janet Yellen"], correctAnswer:4}
 ];
 
 //function to dynamically generate html for next question
