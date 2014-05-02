@@ -9,11 +9,19 @@ var allQuestions = [
 function addNextQuestion (nextQuestion) {
     "use strict";
     var questionContent="";
+
+    //display the question
     questionContent += "<form>" + "<p>" + nextQuestion.question + "</p>";
+
+    //display the choices, value attribute lets us compare user response to correct answer
     for(var i = 0; i < nextQuestion.choices.length; i++) {
         questionContent += "<br>" + "<input type ='radio' name='radAnswer' value=" + i + ">"  + nextQuestion.choices[i];
     }
+
+    //add the submit button
     questionContent += "<br><input id='submitAnswer' type ='submit' value='Submit Answer'></form>";
+
+    //return the completed string to be used with .html()
     return questionContent;
 }
 
@@ -31,14 +39,14 @@ $(document).ready(function() {
         //display first question
         $("div.question").html(function() {
             return addNextQuestion(allQuestions[0]);
-        });
-
-        //set data attribute to keep track of current question number
+        }).data("q", 0);
+        //set data attribute 'q' to keep track of current question number
         //question number starts at zero to make it easy to reference the allQuestions array
-        $("div.question").data("q", 0);
     });
 
     //listen for subsequent button click events
+    //need to use $('body').on since the script is injecting new html to change questions
+    //can't bind an event handler directly on #submitAnswer since it may not exist yet
     $('body').on('click', '#submitAnswer' ,function(){
 
         //get the answer that was selected
@@ -49,6 +57,9 @@ $(document).ready(function() {
 
         //check for a valid answer before continuing
         if(typeof answer === 'string') {
+            //clear out the error div since last question was answered
+            $('div.error').html("");
+
             if(answer == allQuestions[getCurrQ].correctAnswer) {
                 //get current score so we can add 1 to it after a correct answer
                 var getCurrScore = $('div.score').data('score');
@@ -72,8 +83,11 @@ $(document).ready(function() {
                 });
             }
         } else {
-            //page just resets after this happens, need to fix
-            alert('Please select an answer');
+            //alert('Please select an answer');
+            $('div.error').html("<p>Please select an answer.</p>");
+            $('div.question').html(function() {
+                return addNextQuestion(allQuestions[getCurrQ]);
+            });
         }
     });
 });
